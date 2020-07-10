@@ -21,7 +21,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/
 apt update && apt install -y nodejs yarn
 
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install php-memcached php7.2-mysql php-pgsql php7.2-sqlite3 php7.2-intl php-gd php-mbstring php-yaml php-curl php-json php-redis composer
+    && apt-get -y --no-install-recommends install php-memcached php7.2-cli php7.2-common php7.2-curl php7.2-intl php7.2-json php7.2-mbstring php7.2-mysql php7.2-opcache php7.2-readline php7.2-sqlite3 php7.2-xml php7.2-zip php7.2-pgsql php7.2-gd php7.2-yaml php7.2-redis composer
 
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
