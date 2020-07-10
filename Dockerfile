@@ -10,7 +10,7 @@ ENV LC_ALL=fr_FR.UTF-8
 
 # Install selected extensions and other stuff
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install curl wget git sudo locales \
+    && apt-get -y --no-install-recommends install curl wget git sudo cron locales \
     && locale-gen $LOCALE && update-locale \
     && usermod -u 33 www-data && groupmod -g 33 www-data \
     && mkdir -p $APPDIR && chown www-data:www-data $APPDIR
