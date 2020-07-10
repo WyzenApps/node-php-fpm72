@@ -25,9 +25,12 @@ RUN apt-get update \
 
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
+# Run cron
+RUN service cron start
+
 COPY ./ini/php-ini-overrides.ini /etc/php/7.2/fpm/conf.d/99-overrides.ini
+
 
 EXPOSE 9000
 VOLUME [ $APPDIR ]
 WORKDIR $APPDIR
-# USER 33:33
