@@ -12,7 +12,7 @@ ENV LC_ALL=fr_FR.UTF-8
 RUN apt-get update \
     && apt-get -y --no-install-recommends install curl wget git sudo cron locales \
     && locale-gen $LOCALE && update-locale \
-    && usermod -u 33 www-data && groupmod -g 33 www-data \
+    && usermod -u 33 -d $APPDIR www-data && groupmod -g 33 www-data \
     && mkdir -p $APPDIR && chown www-data:www-data $APPDIR
 
 RUN cd /tmp && wget https://deb.nodesource.com/setup_12.x && chmod +x setup_12.x && ./setup_12.x && \
