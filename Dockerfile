@@ -18,10 +18,15 @@ RUN apt-get update \
 RUN cd /tmp && wget https://deb.nodesource.com/setup_12.x && chmod +x setup_12.x && ./setup_12.x && \
 cd /tmp && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
 echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-apt update && apt install -y nodejs yarn
+apt update && apt install -y --force-yes nodejs yarn
 
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install php-memcached php7.2-cli php7.2-common php7.2-curl php7.2-intl php7.2-json php7.2-mbstring php7.2-mysql php7.2-opcache php7.2-readline php7.2-sqlite3 php7.2-xml php7.2-zip php7.2-pgsql php7.2-gd php7.2-yaml php7.2-redis composer
+    && apt-get -y --no-install-recommends install php-memcached php7.2-cli php7.2-common php7.2-curl php7.2-intl php7.2-json php7.2-mbstring php7.2-mysql php7.2-opcache php7.2-readline php7.2-sqlite3 php7.2-xml php7.2-zip php7.2-pgsql php7.2-gd php7.2-yaml php7.2-redis \
+&& cd /tmp \
+&& php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+&& php composer-setup.php \
+&& php -r "unlink('composer-setup.php');" \
+&& mv composer.phar /usr/local/bin/composer
 
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
@@ -32,5 +37,5 @@ COPY ./ini/php-ini-overrides.ini /etc/php/7.2/fpm/conf.d/99-overrides.ini
 
 
 EXPOSE 9000
-VOLUME [ $APPDIR ]
+VOLUME [ "$APPDIR" ]
 WORKDIR $APPDIR
